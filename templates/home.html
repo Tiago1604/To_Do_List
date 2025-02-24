@@ -1,0 +1,20 @@
+<!-- home.html -->
+{% extends 'base.html' %}
+{% block title %}Minhas Listas{% endblock %}
+{% block content %}
+    <h2>Listas de Tarefas</h2>
+    <ul>
+        {% for lista in listas %}
+            <li>
+                <a href="{{ url_for('visualizar_lista', lista_id=lista[0]) }}">{{ lista[1] }}</a>
+                <form action="{{ url_for('remove_lista', lista_id=lista[0]) }}" method="post" style="display:inline;">
+                    <button type="submit" class="btn btn-danger" onclick="return confirm('Tem certeza que deseja remover esta lista?')">Remover</button>
+                </form>
+            </li>
+        {% endfor %}
+    </ul>
+    <form action="{{ url_for('nova_lista') }}" method="post" class="form_add">
+        <input type="text" name="nome_lista" placeholder="Nova lista" required>
+        <button type="submit" class="btn">Criar Lista</button>
+    </form>
+{% endblock %}

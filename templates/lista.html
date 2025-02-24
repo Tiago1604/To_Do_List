@@ -1,0 +1,23 @@
+{% extends 'base.html' %}
+{% block title %}Tarefas{% endblock %}
+{% block content %}
+    <h2>Tarefas</h2>
+    <ul>
+        {% for tarefa in tarefas %}
+            <li>
+                {{ tarefa[2] }}
+                <form action="{{ url_for('del_tarefa', lista_id=lista_id, tarefa_id=tarefa[0]) }}" method="post" style="display:inline;">
+                    <button type="submit" class="btn btn-danger" onclick="return confirm('Tem certeza que deseja remover esta tarefa?')">
+                        Remover
+                    </button>
+                </form>
+            </li>
+        {% endfor %}
+    </ul>
+    <form action="{{ url_for('add_tarefa', lista_id=lista_id) }}" method="post" class="form_add">
+        <input type="text" name="tarefa" placeholder="Nova tarefa" required>
+        <button type="submit" class="btn">Adicionar Tarefa</button>
+    </form>
+    <br>
+    <a href="{{ url_for('home') }}" class="btn">Voltar</a>
+{% endblock %}

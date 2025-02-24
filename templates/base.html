@@ -1,0 +1,17 @@
+<!-- base.html -->
+<!DOCTYPE html>
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{% block title %}Flask To-Do{% endblock %}</title>
+    <link rel="stylesheet" href="/static/css/style.css">
+
+</head>
+<body>
+    <div class="caderno">
+        <h1>{% block header %}To-Do List{% endblock %}</h1>
+        {% block content %}{% endblock %}
+    </div>
+</body>
+</html>

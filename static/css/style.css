@@ -1,0 +1,99 @@
+body {
+    background-color: #f7f3e9; /* Cor de papel */
+    font-family: 'Pangolin', cursive;
+    text-align: center;
+}
+
+.caderno {
+    width: 80%;
+    max-width: 600px;
+    margin: 20px auto;
+    padding: 20px;
+    background: repeating-linear-gradient(
+        white 0px,
+        white 24px,
+        #ddd 25px /* Linhas horizontais */
+    );
+    border-left: 5px solid purple; /* Margem do caderno */
+    border-radius: 10px;
+    box-shadow: 5px 5px 10px rgba(0, 0, 0, 0.2);
+}
+
+.tarefa {
+    padding: 10px;
+    border-bottom: 1px dashed #ccc; /* Separação das tarefas */
+}
+
+button[type="submit"] {
+    background: #ffcc66;
+    border: 2px solid #d4a017;
+    padding: 8px 15px;
+    border-radius: 5px;
+    font-weight: bold;
+    cursor: pointer;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+    margin-left: 10px;
+}
+
+button:hover[type="submit"] {
+    background: #ffb84d;
+}
+
+ul {
+    list-style-type: none;
+}
+
+li {
+    align-items: center;
+    justify-content: space-between;
+    padding: 10px;
+    margin: 5px 0;
+    border-radius: 4px;
+    font-size: 20px;
+  }
+
+button.btn-danger {
+    background: #d9534f;
+    border: 2px solid #c9302c;
+    padding: 8px 15px;
+    border-radius: 5px;
+    font-weight: bold;
+    cursor: pointer;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+button.btn-danger:hover {
+    background: #c9302c;
+    border-color: #ac2925;
+}
+
+a {
+    text-decoration: none; /* Remove o sublinhado */
+    color: black; /* Define a cor do texto padrão */
+}
+
+/* Define a cor do link ao passar o mouse */
+a:hover {
+    color: blue; /* Ou qualquer cor que desejar */
+}
+
+/* Se quiser alterar a cor dos links já visitados */
+a:visited {
+    color: black; /* Mantém a mesma cor dos links normais */
+}
+
+.form_add {
+    display: flex;
+    align-items: center;
+    gap: 10px; /* Espaço entre input e botão */
+    margin-top: 15px;
+}
+
+.form_add input {
+    flex: 1; /* O input cresce para ocupar o espaço disponível */
+    padding: 8px;
+    border: 2px solid #ccc;
+    border-radius: 5px;
+    font-size: 15px;
+}
+
