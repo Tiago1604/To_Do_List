@@ -1,9 +1,8 @@
 import sqlite3
-from flask import Flask, request, render_template, redirect, url_for
+from flask import Flask, request, render_template, redirect, url_for, jsonify
 
 app = Flask(__name__)
 
-# Configuração do banco de dados SQLite
 DB_PATH = "tasks.db"
 
 def init_db():
@@ -45,8 +44,8 @@ def nova_lista():
 def remove_lista(lista_id):
     with sqlite3.connect(DB_PATH) as conn:
         cursor = conn.cursor()
-        cursor.execute("DELETE FROM tarefas where lista_id=?",(lista_id,))
-        cursor.execute("DELETE FROM listas where id=?",(lista_id,))
+        cursor.execute("DELETE FROM tarefas where lista_id=?", (lista_id,))
+        cursor.execute("DELETE FROM listas where id=?", (lista_id,))
         conn.commit()
     return redirect(url_for('home'))
 
@@ -72,6 +71,15 @@ def del_tarefa(lista_id, tarefa_id):
         conn.commit()
     return redirect(url_for('visualizar_lista', lista_id=lista_id))
 
+@app.route('/lista/<int:lista_id>/atualizar_tarefa/<int:tarefa_id>', methods=['POST'])
+def atualizar_tarefa(lista_id, tarefa_id):
+    status = request.json.get("concluida")  
+    with sqlite3.connect(DB_PATH) as conn:
+        cursor = conn.cursor()
+        cursor.execute("UPDATE tarefas SET concluida=? WHERE id=?", (status, tarefa_id))
+        conn.commit()
+    return jsonify({"message": "Tarefa atualizada!"})
+
 @app.route('/limpar_bd', methods=['POST'])
 def limpar_bd():
     with sqlite3.connect(DB_PATH) as conn:
@@ -79,9 +87,7 @@ def limpar_bd():
         cursor.execute("DELETE FROM tarefas")
         cursor.execute("DELETE FROM listas")
         conn.commit()
-    return "Banco de dados limpo!", 200
-
-
+    return "limpandooo", 200
 
 if __name__ == '__main__':
     app.run(debug=True)

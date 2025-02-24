@@ -5,7 +5,10 @@
     <ul>
         {% for tarefa in tarefas %}
             <li>
-                {{ tarefa[2] }}
+                <input type="checkbox" class="checkbox-tarefa" data-tarefa-id="{{ tarefa[0] }}" data-lista-id="{{ lista_id }}" {% if tarefa[3] == 1 %}checked{% endif %}>
+                <span {% if tarefa[3] == 1 %}style="text-decoration: line-through; color: gray;"{% endif %}>
+                    {{ tarefa[2] }}
+                </span>
                 <form action="{{ url_for('del_tarefa', lista_id=lista_id, tarefa_id=tarefa[0]) }}" method="post" style="display:inline;">
                     <button type="submit" class="btn btn-danger" onclick="return confirm('Tem certeza que deseja remover esta tarefa?')">
                         Remover
@@ -20,4 +23,32 @@
     </form>
     <br>
     <a href="{{ url_for('home') }}" class="btn">Voltar</a>
+
+    <script>
+        document.addEventListener("DOMContentLoaded", function () {
+            let checkboxes = document.querySelectorAll(".checkbox-tarefa");
+
+            checkboxes.forEach(checkbox => {
+                checkbox.addEventListener("change", function () {
+                    let tarefaId = this.getAttribute("data-tarefa-id");
+                    let listaId = this.getAttribute("data-lista-id");
+                    let status = this.checked ? 1 : 0;
+
+                    fetch(`/lista/${listaId}/atualizar_tarefa/${tarefaId}`, {
+                        method: "POST",
+                        headers: {
+                            "Content-Type": "application/json"
+                        },
+                        body: JSON.stringify({ concluida: status })
+                    })
+                    .then(response => response.json())
+                    .then(data => {
+                        console.log(data.message);
+                        location.reload(); 
+                    })
+                    .catch(error => console.error("Erro ao atualizar a tarefa:", error));
+                });
+            });
+        });
+    </script>
 {% endblock %}
